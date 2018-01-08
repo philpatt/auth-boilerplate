@@ -8,12 +8,12 @@ var flash = require('connect-flash');
 var isLoggedIn = require('./middleware/isloggedin')
 var passport = require('./config/passportConfig');
 var session = require('express-session');
-var app = express ();
+var app = express();
 
 //define middleware
 
 app.set('view engine', 'ejs');
-app.set(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use(ejsLayouts);
 app.use(session({
 	secret:'abc123',

@@ -16,12 +16,12 @@ router.post('/login', passport.authenticate('local', {
 	failureFlash : 'Invalid Credentials'
 }));
 //get sign up form
-router.get('/signup', function(req, res, next){
+router.get('/signup', function(req, res){
 	res.render('auth/signup');
 });
 // post signup info on form
 router.post('/signup', function(req, res, next){
-	console.log('req.body is', req.body.email);
+	console.log('req.body is', req.body);
 	db.user.findOrCreate({
 		where: { email: req.body.email },
 		defaults: {
@@ -44,7 +44,7 @@ router.post('/signup', function(req, res, next){
 			res.redirect('/auth/login');
 		}
 	}).catch(function(err){
-		req.flash('error', error.message)
+		req.flash('error', err.message)
 		res.redirect('/auth/signup');
 	});
 });
@@ -56,23 +56,36 @@ router.get('/logout', function(req, res){
 	res.redirect('/');
 });
 
+//-----------------// OAUTH routes------------------
+//calls the passport-facebook strategy (located in passport config)
+router.get('/facebook', passport.authenticate('facebook', {
+	//scope says what you want to request from facebook
+	scope:['public_profile', 'email']
+}));
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//handle the response from Facebook {logic located in passport config}
+router.get('/callback/facebook', passport.authenticate('facebook', {
+	successRedirect: '/profile',
+	successFlash:'You successfuly logged in via Facebook',
+	failureRedirect:'/auth/login',
+	failureFlash:'You tried to login with FB, but FB doesnt like you'
+}));
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
