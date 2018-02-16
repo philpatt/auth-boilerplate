@@ -47,36 +47,10 @@ module.exports = (sequelize, DataTypes) => {
   user.prototype.isValidPassword = function(passwordTyped){
     return bcrypt.compareSync(passwordTyped, this.password);
   }
-
   user.prototype.toJSON = function(){
     var user = this.get();
     delete user.password;
     return user; 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return user;
 };

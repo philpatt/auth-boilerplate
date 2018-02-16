@@ -57,7 +57,7 @@ router.get('/logout', function(req, res){
 });
 
 //-----------------// OAUTH routes------------------
-//calls the passport-facebook strategy (located in passport config)
+// calls the passport-facebook strategy (located in passport config)
 router.get('/facebook', passport.authenticate('facebook', {
 	//scope says what you want to request from facebook
 	scope:['public_profile', 'email']
