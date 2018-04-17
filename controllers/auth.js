@@ -10,7 +10,7 @@ router.get('/login', function(req, res){
 });
 //post login info on form 
 router.post('/login', passport.authenticate('local', {
-	successRedirect: '/profile', 
+	successRedirect: '/', 
 	successFlash: 'Login Successful!',
 	failureRedirect: '/auth/login',
 	failureFlash : 'Invalid Credentials'
@@ -34,7 +34,7 @@ router.post('/signup', function(req, res, next){
 		if(wasCreated){
 			//goodjob, you didnt make a duplicate!
 			passport.authenticate('local', {
-				successRedirect: '/profile',
+				successRedirect: '/',
 				successFlash: 'successfuly logged in'
 			})(req, res, next);
 		}
@@ -60,13 +60,13 @@ router.get('/logout', function(req, res){
 // calls the passport-facebook strategy (located in passport config)
 router.get('/facebook', passport.authenticate('facebook', {
 	//scope says what you want to request from facebook
-	scope:['public_profile', 'email']
+	scope:['public_', 'email']
 }));
 
 
 //handle the response from Facebook {logic located in passport config}
 router.get('/callback/facebook', passport.authenticate('facebook', {
-	successRedirect: '/profile',
+	successRedirect: '/',
 	successFlash:'You successfuly logged in via Facebook',
 	failureRedirect:'/auth/login',
 	failureFlash:'You tried to login with FB, but FB doesnt like you'

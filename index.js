@@ -12,6 +12,7 @@ var app = express();
 
 //define middleware
 
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(ejsLayouts);
